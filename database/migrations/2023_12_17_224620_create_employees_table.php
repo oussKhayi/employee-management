@@ -16,8 +16,10 @@ return new class extends Migration
             $table->string('cin');
             $table->string('first_name');
             $table->string('last_name');
-            $table->integer('age');
-            $table->string('gender');
+            $table->date('birth_date')->nullable();
+            $table->string('address')->nullable();
+            $table->string('tel')->nullable();
+            $table->string('gender')->nullable();
             $table->string('working_time');
             $table->timestamps();
         });

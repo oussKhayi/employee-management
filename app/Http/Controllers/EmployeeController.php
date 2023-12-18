@@ -12,7 +12,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //
+        $employee = Employee::all();
+        return view('components.employee-table', compact('employee'));
     }
 
     /**
@@ -20,7 +21,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        return view('components.insert-employee');
     }
 
     /**
@@ -28,7 +29,38 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        // Step 1: Validate the incoming request data
+        $validatedData = $request->validate([
+            'cin' => 'required|string',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'birth_date' => 'nullable|date',
+            'address' => 'nullable|string',
+            'tel' => 'nullable|string',
+            'gender' => 'nullable|string',
+            'working_time' => 'required|string',
+        ]);
+
+        // Step 2: Create a new employee record in the database using the validated data
+        // Employee::create($validatedData);
+
+        
+         // Step 2: Create a new employee record in the database using the validated data
+         $employee = new Employee();
+         $employee->cin = $request->input('cin');
+         $employee->first_name = $request->input('first_name');
+         $employee->last_name = $request->input('last_name');
+         $employee->birth_date = $request->input('birth_date');
+         $employee->address = $request->input('address');
+         $employee->tel = $request->input('tel');
+         $employee->gender = $request->input('gender');
+         $employee->working_time = $request->input('working_time');
+         $employee->save();
+
+        // Step 3: Redirect the user to a specific page or return a response
+        return redirect()->route('employee.create')->with('success', 'Employee added successfully');
+        // return 'Employee added successfully';
     }
 
     /**
