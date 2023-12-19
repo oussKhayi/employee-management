@@ -37,9 +37,13 @@
                           <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                       </svg>
                       Employees
+                      @if($attributes->has('employee'))
                       <div class="border px-2.5 py-0.5 text-xs font-semibold">
-                          52
-                      </div>
+                        @php $employee = $attributes->get('employee'); @endphp
+                        <!-- Now $employee is available for use in this component -->
+                        {{-- {{count($employees)}} --}}
+                    </div>
+                    @endif
                   </a>
                   <a class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 hover:text-gray-900 @if(request()->is('employee.show')) text-gray-900
                     bg-gray-100

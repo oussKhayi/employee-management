@@ -1,6 +1,15 @@
-<x-admin-dashboard>
+<x-admin-dashboard :employee="$employees">
     <div class="relative w-full overflow-auto">
-
+      @if (session('delete'))
+      <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+          <strong class="font-bold">Done</strong>
+          <span class="block sm:inline">{{ session('delete') }}</span>
+          
+          <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+            <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+          </span>
+      </div>
+  @endif
         <table class="w-full caption-bottom text-sm">
           <thead class="[&amp;_tr]:border-b">
             <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
@@ -8,10 +17,13 @@
                 CIN
               </th>
               <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 min-w-[150px]">
-                Name
+               Full name
               </th>
               <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">
-                Position
+                Working time
+              </th>
+              <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">
+                Tel
               </th>
               <th class="h-12 px-4 align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 text-right">
                 Actions
@@ -19,20 +31,26 @@
             </tr>
           </thead>
           <tbody class="[&amp;_tr:last-child]:border-0">
-            @foreach ($employee as $emp)
+            @foreach ($employees as $emp)
               
             <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-              <td class="uppercase p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">{{$emp->cin}}</td>
-              <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{{$emp->first_name}}</td>
+              <td class="uppercase p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-semibold">{{$emp->cin}}</td>
+              <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{{$emp->last_name}} {{$emp->first_name}}</td>
               <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">{{$emp->working_time}}</td>
+              <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">{{$emp->tel}}</td>
               <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-right">
-                <a href="#" class="border rounded-lg p-1">Details</a>
-                <a href="#" class="border rounded-lg p-1">Static</a>
+                <a href="{{route('employee.show',$emp->id)}}" class="border rounded-lg p-1">Details</a>
+                <a href="{{route('employee.edit', $emp->id)}}" class="border rounded-lg p-1">Static</a>
               </td>
             </tr>
             @endforeach
           </tbody>
+          
         </table>
-          </div>
-  </div>
+      </div>
+    </div>
+    {{ $employees->links() }}
+    {{-- <div class="mt-4">
+      {{ $employees->links('vendor.pagination.tailwind') }}
+  </div> --}}
 </x-admin-dashboard>

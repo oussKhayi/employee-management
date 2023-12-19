@@ -12,8 +12,9 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employee = Employee::all();
-        return view('components.employee-table', compact('employee'));
+        // $employees = Employee::all();
+        $employees = Employee::paginate(8);
+        return view('components.employee-table', compact('employees'));
     }
 
     /**
@@ -66,17 +67,25 @@ class EmployeeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Employee $employee)
+    public function show(Request $request, $id)
     {
-        //
+         // Retrieve specific employee details (already done by route model binding)
+        $employee = Employee::findOrFail($id); // Not needed
+
+        // Gather additional data if needed (e.g., related entities)
+        // $employee->load('department'); // Example: loading a related department model
+
+        // Return the view with employee data
+        return view('employee.show-employee', compact('employee'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Employee $employee)
+    public function edit(Request $request, $id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+        return view('employee.edit-employee', compact('employee'));
     }
 
     /**
@@ -90,8 +99,11 @@ class EmployeeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Employee $employee)
+    public function destroy($id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+        $employee->delete();
+
+        return redirect()->route('employee.index')->with('delete', 'Employee deleted successfully');
     }
 }
