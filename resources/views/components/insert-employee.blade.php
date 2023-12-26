@@ -1,4 +1,4 @@
-<x-admin-dashboard>
+<x-admin-dashboard title="Add New Employee">
     <form action="{{route('employee.store')}}" method="post"
     class="p-0 m-0">
     @csrf
@@ -13,39 +13,39 @@
         </span>
     </div>
 @endif
-    <h1 class="text-3xl font-bold text-center">Add New Employee</h1>
-    <div class="rounded-lg border bg-card text-card-foreground shadow-sm space-y-4 p-6" data-v0-t="card">
-    <div class="flex flex-col space-y-1.5 p-6">
+    {{-- <h1 class="text-3xl font-bold text-center">Add New Employee</h1> --}}
+    <div class="rounded-lg border bg-card text-card-foreground shadow-sm space-y-4 p-2" data-v0-t="card">
+    <div class="flex flex-col space-y-1.5 p-1">
     <div class="flex items-center space-x-2">
     <span class="relative flex shrink-0 overflow-hidden rounded-full w-10 h-10" src="/placeholder.svg?height=50&amp;width=50">
 </span>
     <div class="font-semibold text-lg">Employee Details</div>
 </div>
 </div>
-<div class="p-6">
+<div class="p-6 pt-2">
     <div class="grid grid-cols-2 gap-4">
     <div class="space-y-2">
     <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="fName">First name</label>
-    <input class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" name="first_name" id="fName" placeholder="Enter employee's name" required="">
+    <input class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" name="first_name" id="fName" placeholder="Enter employee's name" required>
 </div>
 <div class="space-y-2">
     <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="lName">Last name</label>
-    <input class="uppercase flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" name="last_name" id="lName" placeholder="Enter employee's last name" required="" type="text">
+    <input class="uppercase flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" name="last_name" id="lName" placeholder="Enter employee's last name" required type="text">
     @error('first_name')
     <span class="text-red-500">{{ $message }}</span>
 @enderror
 </div>
 <div class="space-y-2">
     <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="cin">CIN</label>
-    <input class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" name="cin" id="cin" placeholder="Enter employee's CIN" required="">
+    <input class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" name="cin" id="cin" placeholder="Enter employee's CIN" required>
 </div>
 <div class="space-y-2">
     <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="phone-number">Phone Number</label>
-    <input class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" name="tel" id="phone-number" placeholder="Enter employee's phone number" required="">
+    <input class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" name="tel" id="phone-number" placeholder="Enter employee's phone number" required>
 </div>
 <div class="space-y-2">
     <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="address">Address</label>
-    <input class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" name="address" id="address" placeholder="Enter employee's address" required="">
+    <input class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" name="address" id="address" placeholder="Enter employee's address" required>
 </div>
 <div class="space-y-2">
     <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="birth">Date of Birth</label>
@@ -67,11 +67,16 @@
     
 </div>
 
+<div class="space-y-2">
+    <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="daily_rent">Daily rent by DH</label>
+    <input type="number" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" min="0" name="daily_rent" id="daily_rent" placeholder="Daily rent, ex : 100,00" required>
+</div>
+
 </div>
 </div>
 {{-- <div class="flex justify-end mt-4"> --}}
     {{-- </div> --}}
-    <button class="w-[60%] ms-[20%] inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-10 px-4 py-2 bg-blue-500 text-white" type="submit">Add Employee</button>
+    <button class="w-[60%] ms-[20%] inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-10 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white" type="submit">Add Employee</button>
 </div>
 </div>
 </form>

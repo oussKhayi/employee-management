@@ -1,4 +1,4 @@
-<x-admin-dashboard>
+<x-admin-dashboard title="employee information">
     <!--
 // v0 by Vercel.
 // https://v0.dev/t/M0vAO8Pkdqr
@@ -23,11 +23,12 @@
 </div>
 <div class="p-6">
     <div class="grid gap-2 text-sm">
-    <p><strong>Contact Information:</strong></p>
+    <p><strong>Employee Information:</strong></p>
 
     <div class="p-0 m-0 flex">CIN: <p class="ps-2 font-bold uppercase">{{$employee->cin}}</p></div>
     <p>Phone: {{$employee->tel}}</p>
     <p>Gender: {{$employee->gender}}</p>
+    <p>Daily rent: {{$employee->daily_rent}}DH</p>
     <p>Address: {{$employee->address}}</p>
 </div>
 <div class="mt-4">

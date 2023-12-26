@@ -1,4 +1,4 @@
-<x-admin-dashboard :employee="$employees">
+<x-admin-dashboard :employee="$employees" title="Employee table">
     <div class="relative w-full overflow-auto">
       @if (session('delete'))
       <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
@@ -10,6 +10,7 @@
           </span>
       </div>
   @endif
+  {{ $employees->links() }}
         <table class="w-full caption-bottom text-sm">
           <thead class="[&amp;_tr]:border-b">
             <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
@@ -34,13 +35,13 @@
             @foreach ($employees as $emp)
               
             <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-              <td class="uppercase p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-semibold">{{$emp->cin}}</td>
+              <td class="uppercase p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-semibold">{{$emp->id}}</td>
               <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{{$emp->last_name}} {{$emp->first_name}}</td>
               <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">{{$emp->working_time}}</td>
               <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">{{$emp->tel}}</td>
               <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-right">
-                <a href="{{route('employee.show',$emp->id)}}" class="border rounded-lg p-1">Details</a>
-                <a href="{{route('employee.edit', $emp->id)}}" class="border rounded-lg p-1">Static</a>
+                <a href="{{route('employee.show',$emp->id)}}" class="border rounded-lg p-1 hover:bg-teal-400">Details</a>
+                <a href="{{url('attendance-emp', $emp->id)}}" class="border rounded-lg p-1 hover:bg-orange-400">Static</a>
               </td>
             </tr>
             @endforeach
@@ -49,7 +50,7 @@
         </table>
       </div>
     </div>
-    {{ $employees->links() }}
+    
     {{-- <div class="mt-4">
       {{ $employees->links('vendor.pagination.tailwind') }}
   </div> --}}

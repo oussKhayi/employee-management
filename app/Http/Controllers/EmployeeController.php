@@ -57,6 +57,7 @@ class EmployeeController extends Controller
          $employee->tel = $request->input('tel');
          $employee->gender = $request->input('gender');
          $employee->working_time = $request->input('working_time');
+         $employee->daily_rent = $request->input('daily_rent');
          $employee->save();
 
         // Step 3: Redirect the user to a specific page or return a response

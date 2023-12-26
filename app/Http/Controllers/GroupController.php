@@ -12,7 +12,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        //
+        return view('groups.create-group');
     }
 
     /**
@@ -26,18 +26,43 @@ class GroupController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function store()
+{
+    $validatedData = request()->validate([
+        'type' => 'required|string',
+        'pack_count' => 'required|integer',
+    ]);
+
+    $group = Group::create($validatedData);
+
+    // Redirect to the newly created group with options
+    return redirect()->route('g.show', $group->id)->with('success', 'Group created successfully!');
+}
 
     /**
      * Display the specified resource.
      */
+    
     public function show(Group $group)
     {
-        //
+        return view('groups.show', compact('group'));
     }
+
+    public function addEmployee(Group $group)
+{
+    // Logic to add employee to the group
+    // ...
+
+    return redirect()->back()->with('success', 'Employee added successfully!');
+}
+
+public function removeEmployee(Group $group)
+{
+    // Logic to remove employee from the group
+    // ...
+
+    return redirect()->back()->with('success', 'Employee removed successfully!');
+}
 
     /**
      * Show the form for editing the specified resource.
