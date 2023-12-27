@@ -56,5 +56,9 @@ Route::middleware([
     Route::resource('g', GroupController::class);
 
 
+    Route::get('/employees/{employee}/pay', [EmployeeController::class, 'showPaymentForm'])->name('employees.pay.form');
+    Route::post('/employees/{employee}/pay', [AttendanceController::class, 'payEmployee'])->name('employees.pay');
+
+
 
 });

@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
-    protected $fillable = ['first_name', 'last_name', 'ID', 'age', 'gender', 'working_time', 'daily_rent'];
+    protected $fillable = ['first_name', 'last_name', 'ID', 'age', 'gender', 'working_time', 'daily_rent','rent_taken'];
     use HasFactory;
     public function groups()
     {

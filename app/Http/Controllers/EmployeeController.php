@@ -68,16 +68,45 @@ class EmployeeController extends Controller
     /**
      * Display the specified resource.
      */
+    private function calculatePayment(Employee $employee)
+    {
+        // Retrieve attendance records for the employee
+        $attendances = $employee->attendance;
+
+        // Initialize the total cost
+        $totalCost = 0;
+
+        foreach ($attendances as $atd) {
+            if ($atd->is_present ==1) {
+                if ($atd->half_time==1) {
+                    // Condition 2
+                    $totalCost += $employee->daily_rent / 2;
+                } elseif ($atd->day_and_night) {
+                    // Condition 3
+                    $totalCost += $employee->daily_rent * 2;
+                } else {
+                    // Condition 1
+                    $totalCost += $employee->daily_rent;
+                }
+            }else{
+            // Condition 4: No cost for absent days
+            $totalCost +=0;
+            }
+        }
+
+        return $totalCost;
+    }
     public function show(Request $request, $id)
     {
-         // Retrieve specific employee details (already done by route model binding)
         $employee = Employee::findOrFail($id); // Not needed
+        $payment = $this->calculatePayment($employee);
 
-        // Gather additional data if needed (e.g., related entities)
-        // $employee->load('department'); // Example: loading a related department model
-
-        // Return the view with employee data
-        return view('employee.show-employee', compact('employee'));
+        return view('employee.show-employee', compact('employee','payment'));
+    }
+    public function showPaymentForm($id){
+        $employee = Employee::findOrFail($id); // Not needed
+        $payment = $this->calculatePayment($employee);
+        return view('payment.create', compact('employee','payment'));
     }
 
     /**

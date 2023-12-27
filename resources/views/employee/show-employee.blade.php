@@ -30,6 +30,7 @@
     <p>Gender: {{$employee->gender}}</p>
     <p>Daily rent: {{$employee->daily_rent}}DH</p>
     <p>Address: {{$employee->address}}</p>
+    <p>Payment: {{$payment}} DH</p>
 </div>
 <div class="mt-4">
     <p>

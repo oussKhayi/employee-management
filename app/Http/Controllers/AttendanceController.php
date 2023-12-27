@@ -25,7 +25,7 @@ class AttendanceController extends Controller
         $attendanceArray=[];
         foreach($attendanceData as $atd){
             $data = [
-                "title"=>$atd->id,
+                "title"=>$atd->employee->cin,
                 "start"=>$atd->attendance_date,
                 "end"=>$atd->updated_at
             ];
@@ -41,7 +41,8 @@ class AttendanceController extends Controller
         foreach($employeeWithAtd->attendance as $atd){
             if ($atd->is_present == 1) {
                 $backgroundColor=$atd->half_time == 1?"blue":"green";
-                $is_present = $atd->half_time==1?"Pr 1/2":'Absent';
+                $is_present = $atd->half_time==1?"Pr 1/2":'Present';
+                $is_present = $atd->day_and_night==1?"pr 2":$is_present;
             }else{
                 $backgroundColor="red";
                 $is_present ="Absent";
@@ -53,12 +54,55 @@ class AttendanceController extends Controller
                 "end"=>$atd->attendance_date,
                 "backgroundColor"=>$backgroundColor
             ];
+
+            // $data2 = [
+            //     "title"=>"Payed",
+            //     "start"=>$atd->attendance_date,
+            //     "end"=>$atd->attendance_date,
+            //     "backgroundColor"=>"orange"
+            // ];
             array_push($attendanceArray,$data);
+            // array_push($attendanceArray,$data2);
         }
         return view('attendance.calendar', ['attendanceArray'=>$attendanceArray]);
         
     }
 
+    
+    
+   
+    public function payEmployee(Employee $employee, Request $request)
+    {
+        $request->validate([
+            'rent' => 'required|numeric', // Assuming 'rent' is a numeric value representing the rent
+        ]);
+
+        $rent = $request->input('rent');
+
+        // Check the type of 'rent_taken'
+        if (is_string($employee->rent_taken)) {
+            // Convert the existing 'rent_taken' to an array
+            $previousRent = json_decode($employee->rent_taken, true) ?? [];
+        } else {
+            // 'rent_taken' is already an array
+            $previousRent = $employee->rent_taken ?? [];
+        }
+
+        // Create a new rent entry
+        $newRentEntry = [
+            'rent' => $rent,
+            'date' => now()->toDateString(), // Assuming today's date, you can adjust as needed
+        ];
+
+        // Merge the previous payments with the new entry
+        $rentTaken = array_merge($previousRent, [$newRentEntry]);
+
+        // Update the 'rent_taken' column in the 'employees' table
+        $employee->update(['rent_taken' => json_encode($rentTaken)]);
+
+        return redirect()->route('employee.show', ['employee' => $employee->id])
+            ->with('success', 'Payment successful. Rent added to rent_taken.');
+    }
     
     /**
      * Show the form for creating a new resource.
