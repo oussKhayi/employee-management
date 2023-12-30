@@ -5,9 +5,9 @@
 -->
 <div class="w-full py-12 px-6 md:px-8 lg:px-10">
     <div class="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
-        <div class="p-2 pt-4">
+        {{-- <div class="p-2 pt-4">
             <a  href="{{ url()->previous() }}" class="px-3 py-2 bg-black rounded text-white mt-2"> Back</a>
-        </div>
+        </div> --}}
         <div class="flex flex-col space-y-1.5 p-6">
     <div class="flex items-center gap-4">
     <span class="relative flex shrink-0 overflow-hidden rounded-full h-24 w-24">
@@ -32,17 +32,21 @@
     <p>Address: {{$employee->address}}</p>
     <p>Payment: {{$payment}} DH</p>
 </div>
-<div class="mt-4">
+{{-- <div class="mt-4">
     <p>
     <strong>About:</strong>
 </p>
     <p class="text-gray-600 dark:text-gray-400">A brief bio about the employee goes here. This can include information about their role, their experience, and any other relevant details.</p>
-</div>
+</div> --}}
 </div>
 <div class="flex justify-end p-4">
     <button
      class="bg-transparent hover:bg-gray-800 text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent rounded">
         Edit Details</button>
+    <a
+    href="{{url("employee/$employee->id/payment")}}"
+     class="bg-green-400 hover:bg-green-500 text-white font-semibold hover:text-white py-2 px-4 border rounded ms-4">
+        Payment</a>
 
         <form 
             action="{{ route('employee.destroy', $employee->id) }}" 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\Empty_;
 
 class EmployeeController extends Controller
 {
@@ -68,47 +69,14 @@ class EmployeeController extends Controller
     /**
      * Display the specified resource.
      */
-    private function calculatePayment(Employee $employee)
-    {
-        // Retrieve attendance records for the employee
-        $attendances = $employee->attendance;
 
-        // Initialize the total cost
-        $totalCost = 0;
-
-        foreach ($attendances as $atd) {
-            if ($atd->is_present ==1) {
-                if ($atd->half_time==1) {
-                    // Condition 2
-                    $totalCost += $employee->daily_rent / 2;
-                } elseif ($atd->day_and_night) {
-                    // Condition 3
-                    $totalCost += $employee->daily_rent * 2;
-                } else {
-                    // Condition 1
-                    $totalCost += $employee->daily_rent;
-                }
-            }else{
-            // Condition 4: No cost for absent days
-            $totalCost +=0;
-            }
-        }
-
-        return $totalCost;
-    }
     public function show(Request $request, $id)
     {
         $employee = Employee::findOrFail($id); // Not needed
-        $payment = $this->calculatePayment($employee);
+        $payment = $this->calculateTotalPayment($employee);
 
         return view('employee.show-employee', compact('employee','payment'));
     }
-    public function showPaymentForm($id){
-        $employee = Employee::findOrFail($id); // Not needed
-        $payment = $this->calculatePayment($employee);
-        return view('payment.create', compact('employee','payment'));
-    }
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -136,4 +104,80 @@ class EmployeeController extends Controller
 
         return redirect()->route('employee.index')->with('delete', 'Employee deleted successfully');
     }
+    // =======================================
+
+
+
+    
+    private function calculateTotalPayment(Employee $employee)
+    {
+        // Retrieve attendance records for the employee
+        $attendances = $employee->attendance;
+
+        // Initialize the total cost
+        $totalCost = 0;
+
+        foreach ($attendances as $atd) {
+            if ($atd->is_present ==1) {
+                if ($atd->half_time==1) {
+                    // Condition 2
+                    $totalCost += $employee->daily_rent / 2;
+                } elseif ($atd->day_and_night) {
+                    // Condition 3
+                    $totalCost += $employee->daily_rent * 2;
+                } else {
+                    // Condition 1
+                    $totalCost += $employee->daily_rent;
+                }
+            }else{
+            // Condition 4: No cost for absent days
+            $totalCost +=0;
+            }
+        }
+
+        return $totalCost;
+    }
+
+    public function search(Request $request){
+        $cin = $request->input('search_term');
+
+        // Perform a case-insensitive search by 'cin'
+        $employee = Employee::where('cin', 'like', $cin)->first();
+
+        if ($employee) {
+            // Employee found, redirect to their details page
+            return redirect()->route('employee.show', ['employee' => $employee->id]);
+        } else {
+            // Employee not found, display a message
+            return redirect()->route('employee.index')->with('error', 'Employee with CIN ' . $cin . ' not found.');
+        }
+    }
+    public function showPaymentForm($id){
+        $employee = Employee::findOrFail($id); // Not needed
+        $payment = $this->calculateTotalPayment($employee);
+        return view('payment.create', compact('employee','payment'));
+    }
+
+    public function calculateTakenPayments(Employee $employee){
+        $totalTaken = 0;
+        if (is_string($employee->rent_taken)) {
+            // Convert the existing 'rent_taken' to an array
+            $previousRent = json_decode($employee->rent_taken, true) ?? [];
+        } else {
+            // 'rent_taken' is already an array
+            $previousRent = $employee->rent_taken ?? [];
+        }
+        foreach ($previousRent as $payment) {
+            $totalTaken += $payment['rent']; // Access the "const" key for payment amount
+        }
+        return $totalTaken;
+    }
+    
+    public function employeePayment($id){
+        $employee = Employee::findOrFail($id); // Not needed
+        $totalPayment = $this->calculateTotalPayment($employee);
+        $takenPayments = $this->calculateTakenPayments($employee);
+        return view("payment.employee-payments", compact('employee','totalPayment','takenPayments'));
+    }
+
 }

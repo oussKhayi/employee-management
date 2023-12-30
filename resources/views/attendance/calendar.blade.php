@@ -7,7 +7,9 @@
         document.addEventListener('DOMContentLoaded', function() {
             const calendarEl = document.getElementById('calendar')
             const calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'multiMonthYear',events: @json($attendanceArray),
+            initialView: 'multiMonthYear',
+            firstDay: 1, // Monday
+            events: @json($attendanceArray),
             })
             calendar.render()
         })
@@ -15,7 +17,7 @@
         </script>
     </head>
     <body>
-    <x-admin-dashboard>
+    <x-admin-dashboard title="Employee Attendance">
 
         <div id='calendar'></div>
     </x-admin-dashboard>
