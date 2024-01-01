@@ -40,20 +40,11 @@ Route::middleware([
     Route::get('attendance-emp/{id}', [AttendanceController::class, 'employeeAttendance'])->name('employeeAttendance');
     
     Route::get('analytics', [AnalyticsController::class,'index'])->name('analytics');
-    // Route::get('attendance', [AttendanceController::class,'atd'])->name('attendance.atd');
-    
-    // Route::post('attendance/{employeeId}', [AttendanceController::class, 'storeAttendance'])->name('attendance.store');
-    // Route::resource('attendance', AttendanceController::class);
 
     
-    // Route::post('attendance/{employeeId}', [AttendanceController::class, 'store'])->name('attendance.store');
-    // Route::get('/attendance/{employee_id}', 'EmployeeController@show')->name('employees.show');
-    // routes/web.php or routes/api.php
-    
-    Route::post('/groups', [GroupController::class, 'store'])->name('groups.store');
     Route::post('g/addEmployee', [GroupController::class, 'addEmployee'])->name('g.addEmployee');
     Route::post('g/removeEmployee', [GroupController::class, 'removeEmployee'])->name('g.removeEmployee');
-    Route::resource('g', GroupController::class);
+    Route::resource('groups', GroupController::class);
 
 
     Route::get('/employees/{employee}/pay', [EmployeeController::class, 'showPaymentForm'])->name('employees.pay.form');

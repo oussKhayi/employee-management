@@ -100,8 +100,10 @@ class EmployeeController extends Controller
     public function destroy($id)
     {
         $employee = Employee::findOrFail($id);
+        $employee->attendance()->delete();
         $employee->delete();
 
+        // Employee::destroy($id);
         return redirect()->route('employee.index')->with('delete', 'Employee deleted successfully');
     }
     // =======================================

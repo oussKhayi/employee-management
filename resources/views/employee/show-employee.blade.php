@@ -28,16 +28,11 @@
     <div class="p-0 m-0 flex">CIN: <p class="ps-2 font-bold uppercase">{{$employee->cin}}</p></div>
     <p>Phone: {{$employee->tel}}</p>
     <p>Gender: {{$employee->gender}}</p>
+    <p>CNSS: {{$employee->is_cnss?"Yes":"No"}}</p>
     <p>Daily rent: {{$employee->daily_rent}}DH</p>
     <p>Address: {{$employee->address}}</p>
     <p>Payment: {{$payment}} DH</p>
 </div>
-{{-- <div class="mt-4">
-    <p>
-    <strong>About:</strong>
-</p>
-    <p class="text-gray-600 dark:text-gray-400">A brief bio about the employee goes here. This can include information about their role, their experience, and any other relevant details.</p>
-</div> --}}
 </div>
 <div class="flex justify-end p-4">
     <button
@@ -51,27 +46,17 @@
         <form 
             action="{{ route('employee.destroy', $employee->id) }}" 
             method="POST" 
-            onsubmit="return confirm('Are you sure you want to delete this employee?')">
+            {{-- onsubmit="return confirm('Are you sure you want to delete this employee?')" --}}
+            >
             @method('DELETE')
 
             @csrf
             
-            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded ms-6">
+            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded ms-6" id="show-alert">
                 Delete Employee
             </button>
         </form>
-        
-         
-         
-         <script>
-        //      function confirmDelete(employeeId) {
-        //          if (window.confirm('Are you sure with that?')) {
-        //              window.location.href = '{{ route('employee.destroy', ['employee' => '__employee_id__']) }}'.replace('__employee_id__', employeeId);
-        //          }
-        //      }
-        //  </script>
-    {{-- <button class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 mr-2">Edit Details</button> --}}
-    {{-- <button class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">Delete Employee</button> --}}
+        <a href="#" data-confirm-delete="true">Swal TEST</a>
 </div>
 </div>
 </div>

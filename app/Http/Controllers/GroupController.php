@@ -49,20 +49,20 @@ class GroupController extends Controller
     }
 
     public function addEmployee(Group $group)
-{
-    // Logic to add employee to the group
-    // ...
+    {
+        // Logic to add employee to the group
+        // ...
 
-    return redirect()->back()->with('success', 'Employee added successfully!');
-}
+        return redirect()->back()->with('success', 'Employee added successfully!');
+    }
 
-public function removeEmployee(Group $group)
-{
-    // Logic to remove employee from the group
-    // ...
+    public function removeEmployee(Group $group)
+    {
+        // Logic to remove employee from the group
+        // ...
 
-    return redirect()->back()->with('success', 'Employee removed successfully!');
-}
+        return redirect()->back()->with('success', 'Employee removed successfully!');
+    }
 
     /**
      * Show the form for editing the specified resource.

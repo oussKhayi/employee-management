@@ -73,10 +73,10 @@
                          </tr>
                       </thead>
                       <tbody class="[&amp;_tr:last-child]:border-0">
+                        @if ($employee->rent_taken)
                         @foreach (json_decode($employee->rent_taken, true) as $ele)
                         <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
                             <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-                            {{-- {{$rent->rent}} --}}
                             {{$ele["date"]}}
                             </td>
                             <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
@@ -88,8 +88,18 @@
                                </div>
                             </td>
                          </tr>
-                     
                          @endforeach
+                         @else
+                         <tr class="border-zinc-400 border-t-2">
+                           <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0" colspan="3">
+                              <div class="w-full flex justify-center">
+                                 <div class="bg-red-200 inline-flex items-center rounded-full border px-2.5 py-0.5 w-fit font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80">No payments yet!</div>
+                              </div>
+                           </td>
+                           {{-- <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{{$takenPayments}} DH</td>
+                           <td></td> --}}
+                        </tr>
+                         @endif
                          <tr class="border-zinc-400 border-t-2">
                             <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
                                 <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 w-fit font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80">Total</div>
