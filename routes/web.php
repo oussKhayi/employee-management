@@ -41,10 +41,16 @@ Route::middleware([
     
     Route::get('analytics', [AnalyticsController::class,'index'])->name('analytics');
 
-    
-    Route::post('g/addEmployee', [GroupController::class, 'addEmployee'])->name('g.addEmployee');
-    Route::post('g/removeEmployee', [GroupController::class, 'removeEmployee'])->name('g.removeEmployee');
+    // Groups
     Route::resource('groups', GroupController::class);
+    Route::get('/groups/{group}', [GroupController::class, 'show'])->name('groups.show');
+    Route::get('/group/{group}/addEmployeesForm', [GroupController::class, 'addEmployeesForm'])->name('group.add_employees');
+    Route::post('/groups/{group}/attachEmployees', [GroupController::class, 'attachEmployeesToGroup'])->name('groups.attachEmployeesToGroup');
+    Route::get('/groups/{group}/remove-employee/{employee}', [GroupController::class, 'removeEmployeeFromGroup'])->name('groups.remove-employee');
+    Route::post('/groups/{group}/update', [GroupController::class, 'update'])->name('groups.update');
+
+
+    
 
 
     Route::get('/employees/{employee}/pay', [EmployeeController::class, 'showPaymentForm'])->name('employees.pay.form');

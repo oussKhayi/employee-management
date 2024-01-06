@@ -25,4 +25,5 @@ class Group extends Model
     {
         return $this->belongsToMany(Employee::class, 'employee_groups')->withPivot('daily_rent');
     }
+    
 }

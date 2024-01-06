@@ -22,9 +22,6 @@
                     Half time
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Date
-                </th>
-                <th scope="col" class="px-6 py-3">
                     day and night
                 </th>
                 <th scope="col" class="px-6 py-3">
@@ -53,9 +50,6 @@
                     <option value="1">Yes</option>
                     <option value="0" selected>No</option>
                 </select>
-            </td>
-            <td class="px-6 py-4">
-                <input type="date" class="border rounded" name="attendance_date" />
             </td>
             <td class="px-6 py-4">
                 <select class="border rounded" name="day_and_night">

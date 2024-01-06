@@ -7,6 +7,6 @@
     @endforeach
 </ul>
 
-<a href="{{ route('g.addEmployee', $group) }}" class="p-3 mx-5 bg-rose-400">Add Employee</a>
-<a href="{{ route('g.removeEmployee', $group) }}" class="p-3 mx-5 bg-rose-400">Remove Employee</a>
+{{-- <a href="{{ route('group.addEmployee', $group) }}" class="p-3 mx-5 bg-rose-400">Add Employee</a> --}}
+{{-- <a href="{{ route('group.removeEmployee', $group) }}" class="p-3 mx-5 bg-rose-400">Remove Employee</a> --}}
 </x-layout>

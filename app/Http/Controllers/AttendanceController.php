@@ -119,20 +119,18 @@ class AttendanceController extends Controller
     {
         $request->validate([
             'employee_id' => 'required|exists:employees,id',
-            'attendance_date' => 'required|date',
             'is_present' => 'required',
             'half_time' => 'required',
             'day_and_night' => 'required',
         ]);
 
         $employee = Employee::find($request->input('employee_id'));
-        $employee_id= $employee->id;
         $is_present = $request->input('is_present')=='1'?true:false;
         $half_time = $request->input('half_time')=='1'?true:false;
         $day_and_night = $request->input('day_and_night')=='1'?true:false;
         Attendance::create([
             'employee_id' => $employee->id,
-            'attendance_date' => $request->input('attendance_date'),
+            'attendance_date' => now(),
             'is_present' => $is_present,
             'half_time' => $half_time,
             'day_and_night' => $day_and_night,
