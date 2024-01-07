@@ -48,7 +48,8 @@ Route::middleware([
     Route::post('/groups/{group}/attachEmployees', [GroupController::class, 'attachEmployeesToGroup'])->name('groups.attachEmployeesToGroup');
     Route::get('/groups/{group}/remove-employee/{employee}', [GroupController::class, 'removeEmployeeFromGroup'])->name('groups.remove-employee');
     Route::post('/groups/{group}/update', [GroupController::class, 'update'])->name('groups.update');
-
+    
+    Route::post('/groups/show-for-date/{date}', [GroupController::class, 'showForDate'])->name('groups.show-for-date');
 
     
 

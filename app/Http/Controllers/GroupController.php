@@ -14,9 +14,28 @@ class GroupController extends Controller
     public function index()
     {
         $groups = Group::orderBy('created_at','desc')->get();
-        return view('groups.create-group', compact('groups'));
+        $groupsArray=[];
+        foreach ($groups as $group) {
+            $data = [
+                "title"=>$group->type,
+                "start"=>$group->created_at,
+                "end"=>$group->created_at,
+            ];
+            array_push($groupsArray,$data);
+        }
+        return view('groups.groups-calendar', compact('groupsArray'));
+        // return view('groups.create-group', compact('groups'));
     }
 
+    public function showForDate($date){
+        $groups = Group::whereDate('created_at', $date)->get(); // Replace 'date_field' with your actual date field
+
+        if ($groups->count()) {
+          return view('groups.create-group', compact('groups'));
+        }
+        return redirect()->back()
+          ->with('error', 'No groups found for that date.');
+    }
     /**
      * Show the form for creating a new resource.
      */

@@ -25,7 +25,7 @@
           </div>
           <div class="flex-1 fixed pt-12">
               <nav class="grid items-start px-4 text-sm font-medium">
-                  <a class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 hover:text-gray-900  @if(request()->is('employee.show')) text-gray-900
+                  <a class="flex items-center gap-3 rounded-lg capitalize px-3 py-2 text-gray-500 hover:text-gray-900  @if(request()->is('employee.show')) text-gray-900
                     bg-gray-100
                 @endif " href="{{route('analytics')}}">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
@@ -34,7 +34,7 @@
                       </svg>
                       Home
                   </a>
-                  <a class="flex items-center gap-3 rounded-lg  @if(request()->is('employee'))
+                  <a class="flex items-center gap-3 rounded-lg capitalize  @if(request()->is('employee'))
                     bg-gray-100 text-gray-900
                 @endif px-3 py-2 text-gray-500  hover:text-gray-900" href="{{route('employee.index')}}">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
@@ -53,7 +53,7 @@
                     {{-- </div> --}}
                     @endif
                   </a>
-                  <a class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 hover:text-gray-900 @if(request()->is('employee.show')) text-gray-900
+                  <a class="flex items-center gap-3 rounded-lg capitalize px-3 py-2 text-gray-500 hover:text-gray-900 @if(request()->is('employee.show')) text-gray-900
                     bg-gray-100
                 @endif " href="{{url('groups')}}">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
@@ -62,7 +62,7 @@
                       </svg>
                       Groups
                   </a>
-                  <a href="{{route('employee.create')}}" class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 hover:text-gray-900 @if(request()->is('employee/create'))
+                  <a href="{{route('employee.create')}}" class="flex items-center gap-3 rounded-lg capitalize px-3 py-2 text-gray-500 hover:text-gray-900 @if(request()->is('employee/create'))
                     bg-gray-100 text-gray-900
                 @endif" >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
@@ -74,7 +74,7 @@
                     
                       New Employee
                   </a>
-                  <a class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 hover:text-gray-900 @if(request()->is('list')) text-gray-900
+                  <a class="flex items-center gap-3 rounded-lg capitalize px-3 py-2 text-gray-500 hover:text-gray-900 @if(request()->is('list')) text-gray-900
                     bg-gray-100
                 @endif " href="{{route('list')}}">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
@@ -83,13 +83,13 @@
                       </svg>
                       Attendance list
                   </a>
-                  <a href="{{route('attendance.index')}}" class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 hover:text-gray-900 @if(request()->is('attendance.index'))
+                  <a href="{{route('attendance.index')}}" class="flex items-center gap-3 rounded-lg capitalize px-3 py-2 text-gray-500 hover:text-gray-900 @if(request()->is('attendance.index'))
                     bg-gray-100 text-gray-900
                 @endif" >
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar text-gray-500" viewBox="0 0 16 16"> 
                     <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/> 
                 </svg>
-                    Attendance
+                    Mark Attendances
                   </a>
               </nav>
           </div>

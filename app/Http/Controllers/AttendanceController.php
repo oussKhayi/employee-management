@@ -39,7 +39,7 @@ class AttendanceController extends Controller
         $employeeWithAtd = Employee::with('attendance')->find($employeeId);
         $attendanceArray=[];
         foreach($employeeWithAtd->attendance as $atd){
-            if ($atd->is_present == 1) {
+            if ($atd->is_present == true) {
                 $backgroundColor=$atd->half_time == 1?"blue":"green";
                 $is_present = $atd->half_time==1?"Pr 1/2":'Present';
                 $is_present = $atd->day_and_night==1?"pr 2":$is_present;
@@ -54,15 +54,7 @@ class AttendanceController extends Controller
                 "end"=>$atd->attendance_date,
                 "backgroundColor"=>$backgroundColor
             ];
-
-            // $data2 = [
-            //     "title"=>"Payed",
-            //     "start"=>$atd->attendance_date,
-            //     "end"=>$atd->attendance_date,
-            //     "backgroundColor"=>"orange"
-            // ];
             array_push($attendanceArray,$data);
-            // array_push($attendanceArray,$data2);
         }
         return view('attendance.calendar', ['attendanceArray'=>$attendanceArray]);
         
