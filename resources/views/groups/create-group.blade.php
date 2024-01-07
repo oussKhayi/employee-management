@@ -1,4 +1,16 @@
-<x-admin-dashboard title="Working Groups">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.all.min.js"></script>
+
+</head>
+<body>
+  <x-admin-dashboard title="Working Groups">
     <!--
    // v0 by Vercel.
    // https://v0.dev/t/WyXRDLUae2I
@@ -36,6 +48,7 @@
    </form>
 
    <button class="px-3 py-2 bg-lime-400 font-bold text-black rounded w-full">Create Group +</button>
+
    <main class="container mx-auto p-6 grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       <script>
          document.addEventListener('DOMContentLoaded', function () {
@@ -80,8 +93,8 @@
     <div class="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
        <div class="flex justify-around space-y-1.5 p-6">
           <h3 class="text-xl font-bold tracking-tighter">{{$group->type}}</h3>
-          <form action="{{route('groups.destroy',['group'=>$group->id])}}" method="post">@method('delete')@csrf
-            <button type="submit" href="{{route('groups.destroy',['group'=>$group->id])}}" class="font-bold rounded-full bg-gray-800 text-center text-white w-[18px] h-[18px]">X</button>
+          <form id="deleteForm_{{ $group->id }}" action="{{route('groups.destroy',['group'=>$group->id])}}" method="post">@method('delete')@csrf
+            <button type="submit" onclick="confirmation(event, {{ $group->id }})" class="font-bold rounded-full bg-gray-800 text-center text-white w-[18px] h-[18px]">X</button>
          </form>
        </div>
        <div class="p-6 py-4 border-t border-b">
@@ -109,14 +122,14 @@
          </button>
  
  <!-- Main modal -->
- <div id="authentication-modal-{{ $group->id }}" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-fit h-fit ms-12 bg-red-300 md:inset-0 max-h-full">
-     <div class="relative p-4 w-full max-w-md max-h-full">
+ <div id="authentication-modal-{{ $group->id }}" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-fit h-fit ms-12  md:inset-0 max-h-full">
+     <div class="relative p-4 w-full max-w-md max-h-full shadow-lg">
          <!-- Modal content -->
          <div class="relative bg-white rounded-lg shadow ">
              <!-- Modal header -->
              <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
                  <h3 class="text-xl font-semibold text-gray-900 ">
-                     Sign in to our platform
+                     Update group information
                  </h3>
                  <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center " data-modal-hide="authentication-modal-{{ $group->id }}">
                      <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -130,13 +143,13 @@
                  <form class="space-y-4" action="{{route('groups.update',['group'=>$group])}}" method="POST"> @csrf
                      <div>
                          <label for="type" class="block mb-2 text-sm font-medium text-gray-900 ">Group title</label>
-                         <input type="text" name="type" id="type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="{{$group->type}}">
+                         <input type="text" name="type" id="type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="{{$group->type}}" value="{{$group->type}}">
                      </div>
                      <div>
                          <label for="pack_count" class="block mb-2 text-sm font-medium text-gray-900 ">Number of Boxes</label>
-                         <input type="number" name="pack_count" id="pack_count" placeholder="{{$group->pack_count}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required>
+                         <input type="number" name="pack_count" id="pack_count" placeholder="{{$group->pack_count}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required ="{{$group->pack_count}}">
                      </div>
-                     <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Update group details</button>
+                     <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Update</button>
                  </form>
              </div>
          </div>
@@ -149,4 +162,25 @@
     @endforeach
     {{-- @endfor --}}
  </main>
-</x-admin-dashboard>
+</x-admin-dashboard>  
+<script>
+  function confirmation(event, groupId) {
+      event.preventDefault();
+      Swal.fire({
+          title: "Are you sure?",
+          text: "This group won't be available anymore!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+          if (result.isConfirmed) {
+              // Submit the form with the corresponding group ID
+              document.getElementById('deleteForm_' + groupId).submit();
+          }
+      });
+  }
+</script>
+</body>
+</html>

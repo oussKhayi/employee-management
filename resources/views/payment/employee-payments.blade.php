@@ -26,13 +26,13 @@
           <div class="rounded-lg border bg-card text-card-foreground shadow-sm flex" data-v0-t="card">
              <div class="flex flex-col space-y-1.5 p-6">
                 <h3 class="tracking-tight text-xl font-bold">
-                   Total Rent Balance : {{$totalPayment}} DH
+                  Total Rent Due : {{$totalPayment}} DH
                 </h3>
                 <h3 class="tracking-tight text-xl font-bold text-green-500">
-                   Total Taken Rent : {{$takenPayments}} DH
+                  Rent Paid : {{$takenPayments}} DH
                 </h3>
                 <h3 class="tracking-tight text-xl font-bold text-red-500">
-                   Current Rent Balance : {{$totalPayment-$takenPayments}} DH
+                  Outstanding Balance : {{$totalPayment-$takenPayments}} DH
                 </h3>
              </div>
              <div class="p-3 ms-20 relative w-[30%] flex items-center">

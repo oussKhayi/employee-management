@@ -74,7 +74,6 @@ class EmployeeController extends Controller
     {
         $employee = Employee::findOrFail($id); // Not needed
         $payment = $this->calculateTotalPayment($employee);
-
         return view('employee.show-employee', compact('employee','payment'));
     }
     /**
@@ -154,10 +153,13 @@ class EmployeeController extends Controller
             return redirect()->route('employee.index')->with('error', 'Employee with CIN ' . $cin . ' not found.');
         }
     }
-    public function showPaymentForm($id){
+    public function showPaymentForm(Request $request,$id){
+        // $rentPaid = $request->query('rentPaid');
         $employee = Employee::findOrFail($id); // Not needed
+        $totalPayment = $this->calculateTotalPayment($employee);
+        $rentPaid = $this->calculateTakenPayments($employee);
         $payment = $this->calculateTotalPayment($employee);
-        return view('payment.create', compact('employee','payment'));
+        return view('payment.create', compact('employee','totalPayment','rentPaid'));
     }
 
     public function calculateTakenPayments(Employee $employee){

@@ -5,15 +5,16 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-mark class="block h-9 w-auto" />
+                    <a href="/analytics">
+                        <h1 class="text-2xl font-bold uppercase">Employee S.M</h1>
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    <x-nav-link href="{{ url('analytics') }}">
                         {{ __('Dashboard') }}
+                        {{-- href="/analytics" --}}
                     </x-nav-link>
                 </div>
             </div>

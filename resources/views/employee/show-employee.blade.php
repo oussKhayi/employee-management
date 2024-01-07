@@ -1,3 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.all.min.js"></script>
+</head>
+<body>
+    
+
 <x-admin-dashboard title="employee information">
     <!--
 // v0 by Vercel.
@@ -44,6 +56,7 @@
         Payment</a>
 
         <form 
+            id="deleteForm_{{ $employee->id }}"
             action="{{ route('employee.destroy', $employee->id) }}" 
             method="POST" 
             {{-- onsubmit="return confirm('Are you sure you want to delete this employee?')" --}}
@@ -52,12 +65,32 @@
 
             @csrf
             
-            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded ms-6" id="show-alert">
+            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded ms-6" onclick="confirmation(event, {{$employee->id}})">
                 Delete Employee
             </button>
         </form>
-        <a href="#" data-confirm-delete="true">Swal TEST</a>
 </div>
 </div>
 </div>
 </x-admin-dashboard>
+<script>
+    function confirmation(event, employeeId) {
+        event.preventDefault();
+        Swal.fire({
+            title: "Are you sure?",
+            text: "This employee won't be available anymore!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Submit the form with the corresponding group ID
+                document.getElementById('deleteForm_' + employeeId).submit();
+            }
+        });
+    }
+  </script>
+</body>
+</html>

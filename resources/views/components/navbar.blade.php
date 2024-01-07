@@ -1,7 +1,7 @@
 <nav class="bg-white shadow">
     <div class="container px-6 py-4 mx-auto flex items-center justify-between">
         <a href="/analytics">
-            <h1 class="text-2xl font-bold uppercase">Green tea</h1>
+            <h1 class="text-2xl font-bold uppercase">Employee S.M</h1>
         </a>
 
         
